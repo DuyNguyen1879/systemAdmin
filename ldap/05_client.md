@@ -19,6 +19,21 @@ Create an [SSL host certificate][sysAdminSSL01], get it signed, and copy the sig
 
 [sysAdminSSL01]: https://github.com/dafydd2277/systemAdmin/blob/master/ssl/01_setup.md
 
+Copy the CA certificate to the clients, and create a hash symbolic link.
+
+```bash
+ln -s ca_cert.pem $(openssl x509 -noout -hash -in ca_cert.pem).0
+```
+
+
+## Firewall
+
+```bash
+firewall-cmd --zone=<zone> --add-service=ldaps --permanent
+firewall-cmd --zone=<zone> --add-service=ldap --permanent
+firewall-cmd --reload
+firewall-cmd --list-all
+```
 
 ## Authentication
 
